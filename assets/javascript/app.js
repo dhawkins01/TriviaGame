@@ -16,77 +16,77 @@ $(document).ready(function() {
             question: "Which actor played Bruce Banner in the 2008 film 'The Incredible Hulk'?",
             choices: ["Marc Ruffalo", "Edward Norton", "Robert Downey Jr.", "Dave Hawkins"],
             correctChoice: "Edward Norton",
-            image: ""
+            image: "<img src='assets/images/hulk1.gif'>"
         },
 
         {
             question: "Which actor played Bruce Banner in the 2012 film 'The Avengers'?",
             choices: ["Edward Norton", "Dave Hawkins", "Marc Ruffalo", "Robert Downey Jr."],
             correctChoice: "Marc Ruffalo",
-            image: ""
+            image: "<img src='assets/images/hulk2.gif'>"
         },
 
         {
             question: "Who was the doctor that transformed Steve Rogers into Captain America?",
             choices: ["Dr. Erskine", "Dr. Phil", "Dr. America", "Dr. Hawkins"],
             correctChoice: "Dr. Erskine",
-            image: ""
+            image: "<img src='assets/images/capt1.gif'>"
         },
 
         {
             question: "What is Captain America's shield made out of?",
             choices: ["Titanium", "Hawkanium", "Aluminum", "Vibranium"],
             correctChoice: "Vibranium",
-            image: ""
+            image: "<img src='assets/images/captshield.gif'>"
         },
 
         {
             question: "Who was 'The First Avenger'?",
             choices: ["Tony Stark", "Nick Fury", "Dave Hawkins", "Steve Rogers"],
             correctChoice: "Steve Rogers",
-            image: ""
+            image: "<img src='assets/images/firstavenger.gif'>"
         },
 
         {
             question: "In the 2011 movie, 'Thor', who is Thor's father?",
             choices: ["Odin", "Loki", "Heimdall", "Dave Hawkins"],
             correctChoice: "Odin",
-            image: ""
+            image: "<img src='assets/images/odin.gif'>"
         },
 
         {
             question: "How does Black Widow turn The Hulk back into Bruce Banner?",
             choices: ["By asking politly", "With a text message", "By slapping him", "With a lullaby"],
             correctChoice: "With a lullaby",
-            image: ""
+            image: "<img src='assets/images/hulklullaby.gif'>"
         },
 
         {
             question: "What is Clint Barton's superhero name?",
             choices: ["Hawkeye", "Black Panther", "Iron Man", "Hawkins"],
             correctChoice: "Hawkeye",
-            image: ""
+            image: "<img src='assets/images/hawkeye.gif'>"
         },
 
         {
             question: "What is Peter Parker's superhero name?", 
             choices: ["Batman", "Captain Underpants", "War Machine", "Spider-Man"], 
             correctChoice: "Spider-Man", 
-            image: ""
+            image: "<img src='assets/images/sman.jpg'>"
         },
 
         {
             question: "What is the name of the Marvel comic legend who has made an appearance in all the films of the MCU?", 
             choices: ["Dave Hawkins", "Stan Lee", "Steve Rogers", "Jack Kirby"], 
             correctChoice: "Stan Lee",
-            image: ""
+            image: "<img src='assets/images/stanlee.gif'>"
         },
 
         {
             question: "Thor's hammer is of metal from the heart of a dying what?",
             choices: ["Asteroid", "Hawk", "Star", "Comet"],
             correctChoice: "Star",
-            image: ""
+            image: "<img src='assets/images/thor1.gif'>"
         }
     ];
 	  
@@ -94,9 +94,9 @@ $(document).ready(function() {
 	// create question contents according to question count
 	function questionContent() {
 		
-    	$("#gameScreen").append("<p><strong>" + 
+    	$("#gameScreen").append("<h3><strong>" + 
     		questions[questionCounter].question + 
-    		"</p><p class='choices'>" + 
+    		"</h3><p class='choices'>" + 
     		questions[questionCounter].choices[0] + 
     		"</p><p class='choices'>" + 
     		questions[questionCounter].choices[1] + 
