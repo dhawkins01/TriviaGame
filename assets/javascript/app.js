@@ -1,7 +1,16 @@
 $(document).ready(function() {
+    // console.log( "ready!" );
 
-    // Question and answer array
+    // track which question we are on
+    var questionCounter = 0;
+    // initial time of 15 seconds for each question
+    var time = 15;
+    // will keep tally of right guesses for end game
+    var correctGuesses = 0;
+    //will keep tally of wrong guesses for end game
+    var incorrectGuesses = 0;
 
+    // question & answer array
     var questions = [
         {
             question: "Which actor played Bruce Banner in the 2008 film 'The Incredible Hulk'?",
@@ -80,158 +89,159 @@ $(document).ready(function() {
             image: ""
         }
     ];
+	  
 
+	// create question contents according to question count
+	function questionContent() {
+		// a for loop would be cool here...
+    	$("#gameScreen").append("<p><strong>" + 
+    		questions[questionCounter].question + 
+    		"</p><p class='choices'>" + 
+    		questions[questionCounter].choices[0] + 
+    		"</p><p class='choices'>" + 
+    		questions[questionCounter].choices[1] + 
+    		"</p><p class='choices'>" + 
+    		questions[questionCounter].choices[2] + 
+    		"</p><p class='choices'>" + 
+    		questions[questionCounter].choices[3] + 
+    		"</strong></p>");
+	}
 
-    // Global Variables
+	// user guessed correctly
+	function userWin() {
+		$("#gameScreen").html("<p>You got it right!</p>");
+		correctGuesses++;
+		var correctChoice = questions[questionCounter].correctChoice;
+		$("#gameScreen").append("<p>The answer was <span class='answer'>" + 
+			correctChoice + 
+			"</span></p>" + 
+			questions[questionCounter].image);
+		setTimeout(nextQuestion, 4000);
+		questionCounter++;
+	}
 
-    // track what question we are on
-    var questionNumber = 0;
-    // timer, 20 seconds to answer each question
-    var countStartNumber = 20;
-    // track the correct or incorrect quesses
-    var correct = 0;
-    var incorrect = 0;
-    // variable to hold the intervalId
-    var intervalId;
+	// user guessed incorrectly
+	function userLoss() {
+		$("#gameScreen").html("<p>Nope, that's not it!</p>");
+		incorrectGuesses++;
+		var correctChoice = questions[questionCounter].correctChoice;
+		$("#gameScreen").append("<p>The answer was <span class='answer'>" + 
+			correctChoice + 
+			"</span></p>" + 
+			questions[questionCounter].image);
+		setTimeout(nextQuestion, 4000);
+		questionCounter++;
+	}
 
-    var game = {
-        questions: questions,
-        currentQuestion: 0,
-        counter: countStartNumber,
-        correct: 0,
-        incorrect: 0,
-        countdown: function() {
-            // decrement counter
-            // use jquery to to put dynamically
-            //put logic on the page
-            // if statement 
-                // if time is up, run time up function
+	// user ran out of time
+	function userTimeout() {
+		if (time === 0) {
+			$("#gameScreen").html("<p>You ran out of time!</p>");
+			incorrectGuesses++;
+			var correctChoice = questions[questionCounter].correctChoice;
+			$("#gameScreen").append("<p>The answer was <span class='answer'>" + 
+				correctChoice + 
+				"</span></p>" + 
+				questions[questionCounter].image);
+			setTimeout(nextQuestion, 4000);
+			questionCounter++;
+		}
+	}
 
-        },
-        loadQuestion: function() {
-            // set timer
-            // timer = setInterval(game.countdown, 1000)
-            // dynamically add question into card variable
-            // hint --- card.html ("<h2>" + "</h2>)
-            // for loop to run through the questions
-            // a dynamically added buttons with answer options
-        },
+	// screen that shows final score and nice message :)
+	function resultsScreen() {
+		if (correctGuesses === questions.length) {
+			var endMessage = "Perfection! Might want to go outside more tho";
+			var bottomText = "#nerdalert!";
+		}
+		else if (correctGuesses > incorrectGuesses) {
+			var endMessage = "Good work! But do better you can...";
+			var bottomText = "all your base are belong to us";
+		}
+		else {
+			var endMessage = "You seem to have taken an arrow to the knee";
+			var bottomText = "#scrub";
+		}
+		$("#gameScreen").html("<p>" + endMessage + "</p>" + "<p>You got <strong>" + 
+			correctGuesses + "</strong> right.</p>" + 
+			"<p>You got <strong>" + incorrectGuesses + "</strong> wrong.</p>");
+		$("#gameScreen").append("<h1 id='start'>Start Over?</h1>");
+		$("#bottomText").html(bottomText);
+		gameReset();
+		$("#start").click(nextQuestion);
+	}
 
-        nextQuestion: function () {
-            // set the counter
-            // game.counter = countStartNUmber
-            // use jquery to change the text of the game counter
-            // increment the currentQuestion by one 
-            // call the loadQuestion function
+	// game clock currently set to 15 seconds
+	function timer() {
+		clock = setInterval(countDown, 1000);
+		function countDown() {
+			if (time < 1) {
+				clearInterval(clock);
+				userTimeout();
+			}
+			if (time > 0) {
+				time--;
+			}
+			$("#timer").html("<strong>" + time + "</strong>");
+		}
+	}
 
-        },
+	// moves question counter forward to show next question
+	function nextQuestion() {
+		if (questionCounter < questions.length) {
+			time = 15;
+			$("#gameScreen").html("<p>You have <span id='timer'>" + time + "</span> seconds left!</p>");
+			questionContent();
+			timer();
+			userTimeout();
+		}
+		else {
+			resultsScreen();
+		}
+	// console.log(questionCounter);
+	// console.log(questions[questionCounter].correctChoice);
+	}
 
-        timeUp: function() {
-            // clearInterval(timer)
-            // use jquery to change the text of the game counter
-            // dynamically add out of time to the card
-            // append the Correct answer to the card
-            // append image to the card
-        },
-        
-        results: function() {
-            // clearInterval
-            // dynamically add html to let them know of there results
-            // use jquery to add html of game.counter to the  id of counter-number
-            // add how many correct answers they got
-            // add how many incorrect answer they got
-            // add how many unanswered
-            // add a start over button
-        },
+	// reset score and counter parameters on restart
+	function gameReset() {
+		questionCounter = 0;
+		correctGuesses = 0;
+		incorrectGuesses = 0;
+	}
 
-        clicked: function() {
-            //clearInterval(timer)
-            // if/else statement for when an answer is clicked
-            // if correct run answeredCorrectly() function
-            // else run answerIncorrectly() function
-        },
+    function startGame() {
+    	$("#gameScreen").html("<p>You have <span id='timer'>" + time + "</span> seconds left!</p>");
+    	$("#start").hide();
+    	// $("#gameScreen").append("<div id='question'>");
+    	// var nextQuestion = questionContent(questionCounter);
+    	// $("#gameScreen").append(nextQuestion);
 
-        answeredIncorrectly: function() {
-            // add a point to the incorrect column
-            // clear interval(timer);
-            // dynamically add html to the them know they are wrong
-            // add the right answer
-            // add the image
-            // if/else statement
-                    //if no more questions wait 3 seconds then show results
-                    // else wait three seconds and show next question
-
-
-        },
-
-        answeredIncorrectly: function() {
-            // add a point to correct column
-            // clearInterval(timer)
-            // dynamically add html to let them know they are correct
-            // add image
-            // if else statement
-                //if no more questions wait 3 seconds then show results
-                // else wait three seconds then show next question
-        },
-
-        reset: function() {
-
-        }
-
+		// $("#gameScreen").append("<p>" + questions[questionCounter].question + "</p><p>" + questions[questionCounter].choices[0] + "</p><p>" + questions[questionCounter].choices[1] + "</p><p>" + questions[questionCounter].choices[2] + "</p><p>" + questions[questionCounter].choices[3] + "</p>");
+		// questionCounter++;
+		questionContent();
+    	timer();
+    	userTimeout();
     }
 
-    // var card that hooks to the quiz area ex var card = ("#quiz-area");
-
-    
-    //Main Game area
-
-    //create click even
-    //start button
-
-    $(document).on("click", "#start", function (){
-        $("sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>20 </span> Seconds</h2>");
-        game.loadQuestion();
+    // this starts the game
+    // $("#start").click(nextQuestion);
+    // $("#start").click("#start").hide();
+    $("#start").on("click", function() {
+        $("#start").hide();
+        nextQuestion();
     })
 
-
-    //answer button
-
-    $(document).on("click", )
-
-    
-    // start over button
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // $("#start-button").on("click", function() {
-    //     $("#start-button").hide();
-    //     $("#timer").html("<h3>Time Left: " + timer + "</h3>");
-        
-        
-    // })
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}); // end of document.ready
+    // click function to trigger right or wrong screen
+	$("#gameScreen").on("click", ".choices", (function() {
+		// alert("clicked!");
+		var userGuess = $(this).text();
+		if (userGuess === questions[questionCounter].correctChoice) {
+			clearInterval(clock);
+			userWin();
+		}
+		else {
+			clearInterval(clock);
+			userLoss();
+		}
+	}));
+});
