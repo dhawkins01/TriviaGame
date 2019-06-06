@@ -26,3 +26,7 @@ body {
 #gameScreen p {
     font-size: 20px;
 }
+
+.choices:hover {
+    background-color: red;
+}
