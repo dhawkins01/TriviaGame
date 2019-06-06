@@ -16,3 +16,13 @@ body {
     color: white;
     font-size: 45px;
 }
+
+
+
+#gameScreen h3, p {
+    font-family: 'Luckiest Guy', cursive;
+}
+
+#gameScreen p {
+    font-size: 20px;
+}
