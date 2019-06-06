@@ -93,7 +93,7 @@ $(document).ready(function() {
 
 	// create question contents according to question count
 	function questionContent() {
-		// a for loop would be cool here...
+		
     	$("#gameScreen").append("<p><strong>" + 
     		questions[questionCounter].question + 
     		"</p><p class='choices'>" + 
@@ -150,23 +150,12 @@ $(document).ready(function() {
 
 	// screen that shows final score and nice message :)
 	function resultsScreen() {
-		if (correctGuesses === questions.length) {
-			var endMessage = "Perfection! Might want to go outside more tho";
-			var bottomText = "#nerdalert!";
-		}
-		else if (correctGuesses > incorrectGuesses) {
-			var endMessage = "Good work! But do better you can...";
-			var bottomText = "all your base are belong to us";
-		}
-		else {
-			var endMessage = "You seem to have taken an arrow to the knee";
-			var bottomText = "#scrub";
-		}
-		$("#gameScreen").html("<p>" + endMessage + "</p>" + "<p>You got <strong>" + 
+		
+		$("#gameScreen").html("<p>You got <strong>" + 
 			correctGuesses + "</strong> right.</p>" + 
 			"<p>You got <strong>" + incorrectGuesses + "</strong> wrong.</p>");
 		$("#gameScreen").append("<h1 id='start'>Start Over?</h1>");
-		$("#bottomText").html(bottomText);
+		// $("#bottomText").html(bottomText);
 		gameReset();
 		$("#start").click(nextQuestion);
 	}
@@ -198,8 +187,7 @@ $(document).ready(function() {
 		else {
 			resultsScreen();
 		}
-	// console.log(questionCounter);
-	// console.log(questions[questionCounter].correctChoice);
+	
 	}
 
 	// reset score and counter parameters on restart
@@ -212,20 +200,14 @@ $(document).ready(function() {
     function startGame() {
     	$("#gameScreen").html("<p>You have <span id='timer'>" + time + "</span> seconds left!</p>");
     	$("#start").hide();
-    	// $("#gameScreen").append("<div id='question'>");
-    	// var nextQuestion = questionContent(questionCounter);
-    	// $("#gameScreen").append(nextQuestion);
-
-		// $("#gameScreen").append("<p>" + questions[questionCounter].question + "</p><p>" + questions[questionCounter].choices[0] + "</p><p>" + questions[questionCounter].choices[1] + "</p><p>" + questions[questionCounter].choices[2] + "</p><p>" + questions[questionCounter].choices[3] + "</p>");
-		// questionCounter++;
+    	
 		questionContent();
     	timer();
     	userTimeout();
     }
 
     // this starts the game
-    // $("#start").click(nextQuestion);
-    // $("#start").click("#start").hide();
+    
     $("#start").on("click", function() {
         $("#start").hide();
         nextQuestion();
