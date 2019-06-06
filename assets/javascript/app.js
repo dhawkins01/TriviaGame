@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // console.log( "ready!" );
+    
 
     // track which question we are on
     var questionCounter = 0;
