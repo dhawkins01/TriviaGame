@@ -3,8 +3,8 @@ $(document).ready(function() {
 
     // track which question we are on
     var questionCounter = 0;
-    // initial time of 15 seconds for each question
-    var time = 15;
+    // initial time of 30 seconds for each question
+    var time = 30;
     // will keep tally of right guesses for end game
     var correctGuesses = 0;
     //will keep tally of wrong guesses for end game
@@ -189,7 +189,7 @@ $(document).ready(function() {
 	// moves question counter forward to show next question
 	function nextQuestion() {
 		if (questionCounter < questions.length) {
-			time = 15;
+			time = 30;
 			$("#gameScreen").html("<p>You have <span id='timer'>" + time + "</span> seconds left!</p>");
 			questionContent();
 			timer();
