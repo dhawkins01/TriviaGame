@@ -37,8 +37,8 @@ body {
 }
 
 .choices:hover {
-    background-color: red;
-    color: white;
+    background-color: darkgrey;
+    color: red;
     
 }
 
