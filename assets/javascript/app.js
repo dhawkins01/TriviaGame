@@ -160,7 +160,7 @@ $(document).ready(function() {
 		$("#start").click(nextQuestion);
 	}
 
-	// game clock currently set to 15 seconds
+	// game clock currently set to 30 seconds
 	function timer() {
 		clock = setInterval(countDown, 1000);
 		function countDown() {
