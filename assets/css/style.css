@@ -45,3 +45,7 @@ body {
  #timer strong {
     color: red;
 }
+
+#start {
+    font-family: 'Luckiest Guy', cursive;
+}

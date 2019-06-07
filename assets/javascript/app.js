@@ -154,7 +154,7 @@ $(document).ready(function() {
 		$("#gameScreen").html("<p>You got <strong>" + 
 			correctGuesses + "</strong> right.</p>" + 
 			"<p>You got <strong>" + incorrectGuesses + "</strong> wrong.</p>");
-		$("#gameScreen").append("<h1 id='start'>Start Over?</h1>");
+		$("#gameScreen").append("<button type='button' class='btn btn-dark btn-lg' id='start'>Start Over?</button>");
 		// $("#bottomText").html(bottomText);
 		gameReset();
 		$("#start").click(nextQuestion);
