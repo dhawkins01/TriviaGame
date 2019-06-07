@@ -83,7 +83,7 @@ $(document).ready(function() {
         },
 
         {
-            question: "Thor's hammer is of metal from the heart of a dying what?",
+            question: "Thor's hammer is made of metal from the heart of a dying what?",
             choices: ["Asteroid", "Hawk", "Star", "Comet"],
             correctChoice: "Star",
             image: "<img src='assets/images/thor1.gif'>"
